@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StopWatch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="timerDisplay">
+            <p><span id="min">00</span>:
+                <span id="seconds">00</span>:
+                <span id="tens">00</span>
+            </p>
+        </div>
+        <div class="buttons">
+            <button id="startTimer">Start</button>
+            <button id="pauseTimer">Pause</button>
+            <button id="resetTimer">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        //screen timer display
+        var seconds = 00;
+        var tens = 00;
+        var min = 00;
+        //connecting to html timer display
+        var appendTens = document.getElementById( 'tens' );
+        var appendSeconds = document.getElementById( 'seconds' )
+        var appendMin = document.getElementById( 'min' );
+        //buttons to display
+        var buttonStart = document.getElementById( 'startTimer' );
+        var pauseTimer = document.getElementById( 'pauseTimer' );
+        var resetTimer = document.getElementById( 'resetTimer' );
+        var interval;
+        //creating onclick function for start
+        buttonStart.onclick = function ()
+        {
+            clearInterval( interval ); //clearing interval
+            interval = setInterval( startTimer, 10 ) //set interval
+        }
+
+        pauseTimer.onclick = function () //pause function
+        {
+            clearInterval( interval )
+        }
+
+        resetTimer.onclick = function () //reset function
+        {
+            clearInterval( interval );
+            tens = "00";
+            seconds = "00";
+            min = "00";
+            appendTens.innerHTML = tens;
+            appendSeconds.innerHTML = seconds;
+            appendMin.innerHTML = min;
+        }
+
+        function startTimer () // start the timer
+        {
+            tens++;
+
+            if ( tens <= 9 ) {
+                appendTens.innerHTML = "0" + tens;
+            }
+            if ( tens > 9 ) {
+                appendTens.innerHTML = tens;
+            }
+            if ( tens > 99 ) {
+                seconds++;
+                appendSeconds.innerHTML = "0" + seconds;
+                tens = 0;
+                appendTens.innerHTML = "0" + 0;
+            }
+            if ( seconds > 9 ) {
+                appendSeconds.innerHTML = seconds;
+            }
+            if ( seconds == 60 ) {
+                min++;
+                appendMin.innerHTML = "0" + min;
+                seconds = 0;
+                appendSeconds.innerHTML = "0" + seconds;
+                tens = 0;
+                appendTens.innerHTML = "0" + 0;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
